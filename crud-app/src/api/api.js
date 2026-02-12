@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/users"; // JSON-server or real API
+const API_URL = "https://contact-manage-app.onrender.com/users"; // JSON-server or real API
 
 export const getUsers = () => axios.get(API_URL);
 export const createUser = (data) => axios.post(API_URL, data);
