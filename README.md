@@ -2,8 +2,6 @@
 
 A modern contact management application built with React, featuring add, edit, delete, and view operations with real-time data synchronization.  
 
-## "Backend is simulated with JSON‑server locally. Replace API_URL in api.js with the provided API when available."
-
 
 ## Features
 
@@ -30,79 +28,67 @@ A modern contact management application built with React, featuring add, edit, d
 ## Project Structure
 
 ```
-my-crud-app/
-├── public/
-│   ├── index.html
-│   ├── manifest.json
-│   └── robots.txt
-├── src/
-│   ├── api/
-│   │   └── api.js                  # API service layer
-│   ├── components/
-│   │   ├── Loader.js               # Loading spinner component
-│   │   ├── userForm.js             # Form component for creating/editing users
-│   │   └── userList.js             # Table component displaying users
-│   ├── config/
-│   │   └── formConfig.js           # Form fields configuration
-│   ├── pages/
-│   │   ├── Home.js                 # Main page component
-│   │   └── UserForm.js             # User form page
-│   ├── styles/
-│   │   └── App.css                 # Global styles
-│   ├── utils/
-│   │   └── validationSchema.js     # Yup validation schema
-│   ├── App.js                      # Main App component
-│   ├── index.js                    # Entry point
-│   └── index.css                   # Global CSS
-├── db.json                         # JSON Server database
-├── package.json                    # Dependencies and scripts
-└── README.md                       # This file
+Contact manage app/
+├── backend/
+│   ├── db.json
+│   ├── package.json
+│   └── server.js
+├── crud-app/
+│   ├── public/
+│   └── src/
+│       ├── api/
+       ├── components/
+       ├── config/
+       └── utils/
+├── README.md
 ```
 
-## Installation
+## Prerequisites
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
+- Node.js (v14+)
+- npm (comes with Node) or yarn
 
-### Setup Steps
+## Quick start
 
-1. **Clone the repository**
+1. Start the backend API server
+
    ```bash
-   git clone <repo-url>
-   cd my-crud-app
-   ```
-
-2. **Install dependencies**
-   ```bash
+   cd backend
    npm install
+   npm start
    ```
 
-3. **Install JSON Server globally (for backend)**
+   The backend uses `json-server` via `server.js` and will listen on `http://localhost:5000` by default.
+
+2. Start the frontend
+
    ```bash
-   npm install -g json-server
+   cd ../crud-app
+   npm install
+   npm start
    ```
 
-## Running the Application
+   The React app runs at `http://localhost:3000` in development.
 
-### Terminal 1 - Start JSON Server (Backend)
+Optional: instead of `npm start` in `backend`, you can run `npx json-server --watch db.json --port 5000`.
+
+
+## API endpoints (JSON Server)
+
+- `GET /users` — list users
+- `GET /users/:id` — single user
+- `POST /users` — create user
+- `PUT /users/:id` — update user
+- `DELETE /users/:id` — delete user
+
+## Build for production
+
+To build the frontend for production:
+
 ```bash
-json-server --watch db.json --port 5000
+cd crud-app
+npm run build
 ```
-This starts the mock API server on `http://localhost:5000`
-
-### Terminal 2 - Start React Development Server
-```bash
-npm start
-```
-The app will open at `http://localhost:3000`
-
-## Available Scripts
-
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production
-- `npm run eject` - Ejects from Create React App (irreversible)
 
 ## Usage
 
@@ -128,16 +114,6 @@ The app will open at `http://localhost:3000`
 - **Phone**: Valid phone number format
 - **Email**: Valid email address
 
-## API Endpoints
-
-The app communicates with the following endpoints (when using JSON Server on port 5000):
-
-- `GET /users` - Retrieve all users
-- `GET /users/:id` - Retrieve a specific user
-- `POST /users` - Create a new user
-- `PUT /users/:id` - Update a user
-- `DELETE /users/:id` - Delete a user
-
 ## Customization
 
 ### Add/Remove Form Fields
@@ -158,25 +134,5 @@ Update the base URL in `src/api/api.js`:
 ```javascript
 const API_BASE_URL = "http://localhost:5000";
 ```
-
-## Troubleshooting
-
-### Issue: Fields not clearing after save
-- ✅ Fixed: Form now properly resets using React Hook Form's `reset()` method
-
-### Issue: Edit button not working
-- ✅ Fixed: Form properly updates when editing a contact
-
-### Issue: JSON Server not running
-- Ensure JSON Server is installed: `npm install -g json-server`
-- Check that port 5000 is not in use
-- Run: `json-server --watch db.json --port 5000`
-
-### Issue: API connection errors
-- Verify JSON Server is running on port 5000
-- Check network tab in browser DevTools
-- Ensure `db.json` exists in the project root
-
-
 
 
